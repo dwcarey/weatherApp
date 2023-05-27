@@ -135,15 +135,6 @@ function populateDOM(weatherData) {
   const conditionText = document.getElementById('conditionText');
   conditionText.textContent = `${weatherData[0].locationConditionText}`;
 
-  // day/cloud/UV section
-  /* const isDay = document.getElementById('isDay');
-  if (weatherData[0].locationIsDay === '0') {
-    isDay.textContent = 'Night';
-  }
-  if (weatherData[0].locationIsDay === '1') {
-    isDay.textContent = 'Day';
-  } */
-
   const cloudPercent = document.getElementById('cloudPercent');
   cloudPercent.textContent = `Cloud: ${weatherData[0].locationCloudPercent}` + '%';
 
