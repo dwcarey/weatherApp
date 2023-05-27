@@ -5,6 +5,7 @@ import darkCloud from './pexels-eberhard-grossgasteiger-1743392.jpg';
 import rainImage from './pexels-nur-andi-ravsanjani-gusma-1915182.jpg';
 import snowImage from './pexels-burak-the-weekender-1978126.jpg';
 import lightningImage from './pexels-allan-carvalho-15580056.jpg';
+import clearNight from './pexels-jovydas-pinkevicius-3319535.jpg';
 
 function firstPageLoad() {
   const content = document.getElementById('content');
@@ -175,7 +176,13 @@ function populateDOM(weatherData) {
 
   switch (weatherData[0].locationConditionCode) {
     case '1000':
-      document.body.style.backgroundImage = `url(${sunnyBG})`;
+
+      if (weatherData[0].locationIsDay === '1') {
+        document.body.style.backgroundImage = `url(${sunnyBG})`;
+        break;
+      } else {
+        document.body.style.backgroundImage = `url(${clearNight})`;
+      }
       break;
 
     case '1003':
