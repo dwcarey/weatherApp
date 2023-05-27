@@ -1,0 +1,53 @@
+h1, h2, h3, h4, h5, p {
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+.content {
+    display: grid;
+    grid-template-columns: 40vw 40vw;
+    margin-top: 5vw;
+    grid-template-rows:48px 1fr 1fr 1fr;
+}
+
+#searchContainer {
+    grid-column: span 2;
+    justify-self: center;
+}
+
+#tempContainer {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+}
+
+h1 {
+    align-self: center;
+    justify-self: center;
+    font-size: 20vw;
+}
+
+#iconConditionContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#conditionText {
+
+    text-align: center;
+
+}
+
+#conditionIcon {
+    align-self: center;
+    justify-self: center;
+    width: 20vw;
+}
+
+#locationContainer {
+    grid-row-start: 3;
+    grid-column: span 2;
+}

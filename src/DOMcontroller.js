@@ -17,9 +17,15 @@ function firstPageLoad() {
   conditionText.id = 'conditionText';
 
   tempContainer.appendChild(temperatureText);
-  tempContainer.appendChild(conditionIcon);
-  tempContainer.appendChild(conditionText);
-  content.appendChild(tempContainer);
+  
+  const iconConditionContainer = document.createElement('div');
+  iconConditionContainer.id = 'iconConditionContainer';
+
+  iconConditionContainer.appendChild(conditionIcon);
+  iconConditionContainer.appendChild(conditionText);
+
+  tempContainer.appendChild(iconConditionContainer);
+
 
   // search container
   const searchInput = document.createElement('input');
@@ -55,6 +61,7 @@ function firstPageLoad() {
   searchContainer.appendChild(searchInput);
   searchContainer.appendChild(searchButton);
   content.appendChild(searchContainer);
+  content.appendChild(tempContainer);
 
   // day/cloud/UV section
   const skyInfoContainer = document.createElement('div');
@@ -117,15 +124,17 @@ function populateDOM(weatherData) {
   temperatureText.textContent = `${weatherData[0].locationTempCelsius}\u00B0C`;
 
   const conditionIcon = document.getElementById('conditionIcon');
+  const iconUrl = `https:${weatherData[0].locationConditionIcon}`;
+  conditionIcon.src = iconUrl;
   const conditionText = document.getElementById('conditionText');
-  conditionText.textContent = `Condition: ${weatherData[0].locationConditionText}`;
+  conditionText.textContent = `${weatherData[0].locationConditionText}`;
 
   // day/cloud/UV section
   const isDay = document.getElementById('isDay');
-  if (weatherData[0].locationIsDay === 0) {
+  if (weatherData[0].locationIsDay === '0') {
     isDay.textContent = 'Night';
   }
-  if (weatherData[0].locationIsDay === 1) {
+  if (weatherData[0].locationIsDay === '1') {
     isDay.textContent = 'Day';
   }
   const cloudPercent = document.getElementById('cloudPercent');

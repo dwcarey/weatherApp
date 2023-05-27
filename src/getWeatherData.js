@@ -25,6 +25,7 @@ function processWeatherData(fetchedData) {
 async function getCurrentWeatherData(searchQuery) {
   const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=13b63145a5424e57bac133002232605&q=${searchQuery}`, { mode: 'cors' });
   const responseData = await response.json();
+  console.log(responseData);
   const weatherData = processWeatherData(responseData);
   return weatherData;
 }
