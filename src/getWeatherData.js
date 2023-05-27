@@ -15,6 +15,7 @@ function processWeatherData(fetchedData) {
       locationIsDay: `${fetchedData.current.is_day}`,
       locationConditionText: `${fetchedData.current.condition.text}`,
       locationConditionIcon: `${fetchedData.current.condition.icon}`,
+      locationConditionCode: `${fetchedData.current.condition.code}`,
       locationCloudPercent: `${fetchedData.current.cloud}`,
       locationRainMM: `${fetchedData.current.precip_mm}`,
       locationUVIndex: `${fetchedData.current.uv}`,

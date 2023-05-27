@@ -1,4 +1,10 @@
 import { logWeather } from '.';
+import sunnyBG from './pexels-andre-moura-6105553.jpg';
+import lightCloud from './pexels-engin-akyurt-1571730.jpg';
+import darkCloud from './pexels-eberhard-grossgasteiger-1743392.jpg';
+import rainImage from './pexels-nur-andi-ravsanjani-gusma-1915182.jpg';
+import snowImage from './pexels-burak-the-weekender-1978126.jpg';
+import lightningImage from './pexels-allan-carvalho-15580056.jpg';
 
 function firstPageLoad() {
   const content = document.getElementById('content');
@@ -17,7 +23,7 @@ function firstPageLoad() {
   conditionText.id = 'conditionText';
 
   tempContainer.appendChild(temperatureText);
-  
+
   const iconConditionContainer = document.createElement('div');
   iconConditionContainer.id = 'iconConditionContainer';
 
@@ -25,7 +31,6 @@ function firstPageLoad() {
   iconConditionContainer.appendChild(conditionText);
 
   tempContainer.appendChild(iconConditionContainer);
-
 
   // search container
   const searchInput = document.createElement('input');
@@ -130,13 +135,14 @@ function populateDOM(weatherData) {
   conditionText.textContent = `${weatherData[0].locationConditionText}`;
 
   // day/cloud/UV section
-  const isDay = document.getElementById('isDay');
+  /* const isDay = document.getElementById('isDay');
   if (weatherData[0].locationIsDay === '0') {
     isDay.textContent = 'Night';
   }
   if (weatherData[0].locationIsDay === '1') {
     isDay.textContent = 'Day';
-  }
+  } */
+
   const cloudPercent = document.getElementById('cloudPercent');
   cloudPercent.textContent = `Cloud: ${weatherData[0].locationCloudPercent}` + '%';
 
@@ -151,13 +157,93 @@ function populateDOM(weatherData) {
   const regionName = document.getElementById('regionName');
   regionName.textContent = `${weatherData[0].locationRegion}`;
   const regionTime = document.getElementById('regionTime');
-  regionTime.textContent = `${weatherData[0].locationTime}`;
+
+  const year = `${weatherData[0].locationTime.split('-')[0]}`;
+  const month = `${weatherData[0].locationTime.split('-')[1]}`;
+  const day = `${weatherData[0].locationTime.split('-')[2].split(' ')[0]}`;
+  const time = `${weatherData[0].locationTime.split('-')[2].split(' ')[1]}`;
+
+  regionTime.textContent = `${time} ${day}/${month}/${year}`;
 
   // rain and humidity
   const rainMM = document.getElementById('rainMM');
   rainMM.textContent = `Rain (mm): ${weatherData[0].locationRainMM}`;
   const humidityPercent = document.getElementById('humidityPercent');
-  humidityPercent.textContent = `Humidity: ${weatherData[0].locationHumidityPercent}`;
+  humidityPercent.textContent = `Humidity: ${weatherData[0].locationHumidityPercent}` + '%';
+
+  // background determination
+
+  switch (weatherData[0].locationConditionCode) {
+    case '1000':
+      document.body.style.backgroundImage = `url(${sunnyBG})`;
+      break;
+
+    case '1003':
+    case '1006':
+      document.body.style.backgroundImage = `url(${lightCloud})`;
+      break;
+
+    case '1009':
+    case '1030':
+    case '1135':
+    case '1147':
+      document.body.style.backgroundImage = `url(${darkCloud})`;
+      break;
+
+    case '1063':
+    case '1150':
+    case '1153':
+    case '1168':
+    case '1180':
+    case '1183':
+    case '1186':
+    case '1189':
+    case '1192':
+    case '1195':
+    case '1198':
+    case '1240':
+    case '1243':
+    case '1246':
+      document.body.style.backgroundImage = `url(${rainImage})`;
+      break;
+
+    case '1066':
+    case '1069':
+    case '1072':
+    case '1114':
+    case '1117':
+    case '1171':
+    case '1201':
+    case '1204':
+    case '1207':
+    case '1210':
+    case '1213':
+    case '1216':
+    case '1219':
+    case '1222':
+    case '1225':
+    case '1237':
+    case '1249':
+    case '1252':
+    case '1255':
+    case '1258':
+    case '1261':
+    case '1264':
+      document.body.style.backgroundImage = `url(${snowImage})`;
+      break;
+
+    case '1087':
+    case '1273':
+    case '1276':
+    case '1279':
+    case '1282':
+      document.body.style.backgroundImage = `url(${lightningImage})`;
+      break;
+
+    default:
+      // Code to execute if none of the conditions match
+      break;
+  }
 }
 
 export { firstPageLoad, populateDOM };
