@@ -111,45 +111,44 @@ function firstPageLoad() {
 }
 
 function populateDOM(weatherData) {
-    // temperature container
-    console.log(weatherData);
-    const temperatureText = document.getElementById('temperatureText');
-    temperatureText.textContent = `${weatherData[0].locationTempCelsius}\u00B0C`;
+  // temperature container
+  console.log(weatherData);
+  const temperatureText = document.getElementById('temperatureText');
+  temperatureText.textContent = `${weatherData[0].locationTempCelsius}\u00B0C`;
 
-    const conditionIcon = document.getElementById('conditionIcon');
-    const conditionText = document.getElementById('conditionText');
-    conditionText.textContent = `Condition: ${weatherData[0].locationConditionText}`;
-    
-    // day/cloud/UV section
-    const isDay = document.getElementById('isDay');
-    if (weatherData[0].locationIsDay === 0) {
-        isDay.textContent = 'Night';
-    }
-    if (weatherData[0].locationIsDay === 1) {
-        isDay.textContent = 'Day';
-    }
-    const cloudPercent = document.getElementById('cloudPercent');
-    cloudPercent.textContent = `Cloud: ${weatherData[0].locationCloudPercent}`+'%';
+  const conditionIcon = document.getElementById('conditionIcon');
+  const conditionText = document.getElementById('conditionText');
+  conditionText.textContent = `Condition: ${weatherData[0].locationConditionText}`;
 
-    const UVIndex = document.getElementById('UVIndex');
-    UVIndex.textContent = `UV Index ${weatherData[0].locationUVIndex}`;
-    
-    // location and time section
-    const locationName = document.getElementById('locationName');
-    locationName.textContent = `${weatherData[0].locationName}`;
-    const countryName = document.getElementById('countryName');
-    countryName.textContent = `${weatherData[0].locationCountry}`;
-    const regionName = document.getElementById('regionName');
-    regionName.textContent = `${weatherData[0].locationRegion}`;
-    const regionTime = document.getElementById('regionTime');
-    regionTime.textContent = `${weatherData[0].locationTime}`;
-    
-    // rain and humidity
-    const rainMM = document.getElementById('rainMM');
-    rainMM.textContent = `Rain (mm): ${weatherData[0].locationRainMM}`;
-    const humidityPercent = document.getElementById('humidityPercent');
-    humidityPercent.textContent = `Humidity: ${weatherData[0].locationHumidityPercent}`;
-    
+  // day/cloud/UV section
+  const isDay = document.getElementById('isDay');
+  if (weatherData[0].locationIsDay === 0) {
+    isDay.textContent = 'Night';
+  }
+  if (weatherData[0].locationIsDay === 1) {
+    isDay.textContent = 'Day';
+  }
+  const cloudPercent = document.getElementById('cloudPercent');
+  cloudPercent.textContent = `Cloud: ${weatherData[0].locationCloudPercent}` + '%';
+
+  const UVIndex = document.getElementById('UVIndex');
+  UVIndex.textContent = `UV Index ${weatherData[0].locationUVIndex}`;
+
+  // location and time section
+  const locationName = document.getElementById('locationName');
+  locationName.textContent = `${weatherData[0].locationName}`;
+  const countryName = document.getElementById('countryName');
+  countryName.textContent = `${weatherData[0].locationCountry}`;
+  const regionName = document.getElementById('regionName');
+  regionName.textContent = `${weatherData[0].locationRegion}`;
+  const regionTime = document.getElementById('regionTime');
+  regionTime.textContent = `${weatherData[0].locationTime}`;
+
+  // rain and humidity
+  const rainMM = document.getElementById('rainMM');
+  rainMM.textContent = `Rain (mm): ${weatherData[0].locationRainMM}`;
+  const humidityPercent = document.getElementById('humidityPercent');
+  humidityPercent.textContent = `Humidity: ${weatherData[0].locationHumidityPercent}`;
 }
 
 export { firstPageLoad, populateDOM };
