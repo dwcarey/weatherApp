@@ -121,6 +121,39 @@ function firstPageLoad() {
   rainContainer.appendChild(humidityPercent);
 
   content.appendChild(rainContainer);
+
+
+  //forecast container and contents
+
+  const forecastContainer = document.createElement('div');
+  forecastContainer.id = 'forecastContainer';
+  forecastContainer.classList.add('forecastContainer');
+
+  for (let i = 0; i < 7; i += 1) {
+    const forecastDayContainer = document.createElement('div');
+    forecastDayContainer.id = `forecastDayContainer-${i}`;
+    forecastDayContainer.classList.add('forecastDayContainer');
+
+    const forecastDayName = document.createElement('h5');
+    forecastDayName.id = `forecastDayName-${i}`;
+
+    const forecastDayIcon = document.createElement('img');
+    forecastDayIcon.id = `forecastDayIcon-${i}`;
+    forecastDayIcon.classList.add('forecastDayIcon');
+
+    const forecastDayMinTemp = document.createElement('p');
+    forecastDayMinTemp.id = `forecastDayMinTemp-${i}`;
+
+    const forecastDayMaxTemp = document.createElement('p');
+    forecastDayMaxTemp.id = `forecastDayMaxTemp-${i}`;
+
+    forecastDayContainer.appendChild(forecastDayName);
+    forecastDayContainer.appendChild(forecastDayIcon);
+    forecastDayContainer.appendChild(forecastDayMinTemp);
+    forecastDayContainer.appendChild(forecastDayMaxTemp);
+    forecastContainer.appendChild(forecastDayContainer);
+  }
+  content.appendChild(forecastContainer);
 }
 
 function populateDOM(weatherData) {
@@ -242,6 +275,45 @@ function populateDOM(weatherData) {
       // Code to execute if none of the conditions match
       break;
   }
+
+  //populate forecast container
+
+  for (let i = 1; i <= 7; i += 1) {
+  // Selecting the outputs of each container using template literals
+  const selectedDayName = document.getElementById(`forecastDayName-${i - 1}`);
+  const selectedDayIcon = document.getElementById(`forecastDayIcon-${i - 1}`);
+  const selectedDayMinTemp = document.getElementById(`forecastDayMinTemp-${i - 1}`);
+  const selectedDayMaxTemp = document.getElementById(`forecastDayMaxTemp-${i - 1}`);
+  const forecastDay = `day${i}`;
+  const date = new Date(weatherData[0].forecastData[0][forecastDay].date).toString().split(' ')[0];
+  const icon = `https:${weatherData[0].forecastData[0][forecastDay].icon}`;
+  const minTempC = weatherData[0].forecastData[0][forecastDay].minTempC;
+  const maxTempC = weatherData[0].forecastData[0][forecastDay].maxTempC;
+
+    console.log(`
+    ${date} 
+    ${icon} 
+    ${minTempC} 
+    ${maxTempC}`);
+
+    console.log(selectedDayIcon);
+
+  selectedDayName.textContent = `${date}`;
+  selectedDayIcon.src = icon;    
+  selectedDayMinTemp.textContent = `${minTempC}\u00B0`;
+  selectedDayMaxTemp.textContent = `${maxTempC}\u00B0`;
+
+
+}
 }
 
 export { firstPageLoad, populateDOM };
+
+
+/*
+    console.log(weather[0].forecastData.day0.date);
+    const date = new Date(weather[0].forecastData.day0.date);
+    let day = date.toString().split(' ')[0];
+    console.log(`${date}`);
+    console.log(`${day}`);
+*/

@@ -99,3 +99,16 @@ p {
 #countryName {
     grid-column: span 2;
 }
+
+.forecastContainer {
+    display: flex;
+    justify-content: space-between;
+}
+.forecastDayContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.forecastDayIcon {
+    width: 11vw;
+}

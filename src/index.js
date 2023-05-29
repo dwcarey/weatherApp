@@ -12,5 +12,4 @@ async function logWeather(searchTerm) {
 
 logWeather('perth');
 
-
 export { logWeather };
