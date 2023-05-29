@@ -14,8 +14,17 @@ function firstPageLoad() {
   const tempContainer = document.createElement('div');
   tempContainer.id = 'tempContainer';
 
+  const tempTextContainer = document.createElement('div');
+  tempTextContainer.id = 'tempTextContainer';
+
   const temperatureText = document.createElement('h1');
   temperatureText.id = 'temperatureText';
+
+  const tempMinText = document.createElement('h5');
+  tempMinText.id = 'tempMinText';
+
+  const tempMaxText = document.createElement('h5');
+  tempMaxText.id = 'tempMaxText';
 
   const conditionIcon = document.createElement('img');
   conditionIcon.id = 'conditionIcon';
@@ -23,7 +32,11 @@ function firstPageLoad() {
   const conditionText = document.createElement('p');
   conditionText.id = 'conditionText';
 
-  tempContainer.appendChild(temperatureText);
+
+  tempTextContainer.appendChild(temperatureText);
+  tempTextContainer.appendChild(tempMinText);
+  tempTextContainer.appendChild(tempMaxText);
+  tempContainer.appendChild(tempTextContainer);
 
   const iconConditionContainer = document.createElement('div');
   iconConditionContainer.id = 'iconConditionContainer';
@@ -67,25 +80,22 @@ function firstPageLoad() {
   searchContainer.appendChild(searchInput);
   searchContainer.appendChild(searchButton);
   content.appendChild(searchContainer);
-  content.appendChild(tempContainer);
+
 
   // day/cloud/UV section
   const skyInfoContainer = document.createElement('div');
   skyInfoContainer.id = 'skyInfoContainer';
 
-  const isDay = document.createElement('p');
-  isDay.id = 'isDay';
-
-  const cloudPercent = document.createElement('p');
+   const cloudPercent = document.createElement('p');
   cloudPercent.id = 'cloudPercent';
 
   const UVIndex = document.createElement('p');
   UVIndex.id = 'UVIndex';
 
-  skyInfoContainer.appendChild(isDay);
+
   skyInfoContainer.appendChild(cloudPercent);
   skyInfoContainer.appendChild(UVIndex);
-  content.appendChild(skyInfoContainer);
+
 
   // location and time section
   const locationContainer = document.createElement('div');
@@ -108,7 +118,8 @@ function firstPageLoad() {
   locationContainer.appendChild(regionTime);
 
   content.appendChild(locationContainer);
-
+  content.appendChild(tempContainer);
+  content.appendChild(skyInfoContainer);
   // rain and humidity
   const rainContainer = document.createElement('div');
   rainContainer.id = 'rainContainer';
@@ -173,6 +184,13 @@ function populateDOM(weatherData) {
 
   const UVIndex = document.getElementById('UVIndex');
   UVIndex.textContent = `UV Index ${weatherData[0].locationUVIndex}`;
+
+
+  const tempMinText = document.getElementById('tempMinText');
+  tempMinText.textContent = `Min: ${weatherData[0].forecastData[0].day0.minTempC}\u00B0`
+
+  const tempMaxText = document.getElementById('tempMaxText');
+  tempMaxText.textContent = `Max: ${weatherData[0].forecastData[0].day0.maxTempC}\u00B0`
 
   // location and time section
   const locationName = document.getElementById('locationName');
@@ -289,14 +307,6 @@ function populateDOM(weatherData) {
   const icon = `https:${weatherData[0].forecastData[0][forecastDay].icon}`;
   const minTempC = weatherData[0].forecastData[0][forecastDay].minTempC;
   const maxTempC = weatherData[0].forecastData[0][forecastDay].maxTempC;
-
-    console.log(`
-    ${date} 
-    ${icon} 
-    ${minTempC} 
-    ${maxTempC}`);
-
-    console.log(selectedDayIcon);
 
   selectedDayName.textContent = `${date}`;
   selectedDayIcon.src = icon;    

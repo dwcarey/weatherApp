@@ -9,6 +9,7 @@ button {
     padding: 0.175rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    border-radius: 6px;
 
 }
 body {
@@ -23,7 +24,7 @@ body {
     display: grid;
     grid-template-columns: 40vw 40vw;
     margin-top: 5vh;
-    grid-template-rows: 32px 1fr 1fr 1fr;
+    grid-template-rows: 32px 1fr 1fr 0.8fr 1fr;
     color: azure;
     padding: 5vw;
     border-radius: 3rem;
@@ -37,18 +38,23 @@ body {
 
 #searchInput {
     margin-right: 5vw;
+    border-radius: 6px;
+    border-style: none;
+    padding: 3px;
 }
 
 #tempContainer {
     grid-column: span 2;
     display: grid;
     grid-template-columns: 5fr 3fr;
+    align-items: center;
 }
 
 h1 {
     align-self: center;
     justify-self: center;
     font-size: 4rem;
+    grid-column: span 2;
 }
 
 h2 {
@@ -63,6 +69,8 @@ h2, h3, h4 {
 #iconConditionContainer {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+    align-self: center;
 }
 
 #conditionText {
@@ -90,6 +98,11 @@ p {
     margin-top: 1vh;
     text-align: center;
     font-size: 1rem;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 4.5vw;
 }
 
 #locationName {
@@ -111,4 +124,34 @@ p {
 }
 .forecastDayIcon {
     width: 11vw;
+}
+
+#skyInfoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    margin-top: 1vh;
+}
+
+#rainContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    margin-top: 1vh;
+}
+
+
+#tempTextContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#tempMinText {
+    text-align: right;
+    margin-right: 6px;
+}
+
+#tempMaxText {
+    text-align: left;
+    margin-left: 6px;
 }
