@@ -32,7 +32,6 @@ function firstPageLoad() {
   const conditionText = document.createElement('p');
   conditionText.id = 'conditionText';
 
-
   tempTextContainer.appendChild(temperatureText);
   tempTextContainer.appendChild(tempMinText);
   tempTextContainer.appendChild(tempMaxText);
@@ -81,21 +80,18 @@ function firstPageLoad() {
   searchContainer.appendChild(searchButton);
   content.appendChild(searchContainer);
 
-
   // day/cloud/UV section
   const skyInfoContainer = document.createElement('div');
   skyInfoContainer.id = 'skyInfoContainer';
 
-   const cloudPercent = document.createElement('p');
+  const cloudPercent = document.createElement('p');
   cloudPercent.id = 'cloudPercent';
 
   const UVIndex = document.createElement('p');
   UVIndex.id = 'UVIndex';
 
-
   skyInfoContainer.appendChild(cloudPercent);
   skyInfoContainer.appendChild(UVIndex);
-
 
   // location and time section
   const locationContainer = document.createElement('div');
@@ -133,8 +129,37 @@ function firstPageLoad() {
 
   content.appendChild(rainContainer);
 
+  // daily rain chance forecast container
 
-  //forecast container and contents
+  const dayRainForecastContainer = document.createElement('div');
+  dayRainForecastContainer.id = 'dayRainForecastContainer';
+
+  for (let i = 0; i < 24; i += 1) {
+    const hourRainForecastContainer = document.createElement('div');
+    hourRainForecastContainer.id = `hourContainer-${i}`;
+    hourRainForecastContainer.classList.add('hourRainForecastContainer');
+
+    const hourRainIcon = document.createElement('img');
+    hourRainIcon.id = `hourRainIcon-${i}`;
+    hourRainIcon.classList.add('hourRainIcon');
+
+    const hourRainPercent = document.createElement('p');
+    hourRainPercent.id = `rainPercent-${i}`;
+    hourRainPercent.classList.add('hourRainPercent');
+
+    const hourRainTime = document.createElement('p');
+    hourRainTime.id = `rainTime-${i}`;
+    hourRainTime.classList.add('hourRainTime');
+
+    hourRainForecastContainer.appendChild(hourRainIcon);
+    hourRainForecastContainer.appendChild(hourRainPercent);
+    hourRainForecastContainer.appendChild(hourRainTime);
+    dayRainForecastContainer.appendChild(hourRainForecastContainer);
+  }
+
+  content.appendChild(dayRainForecastContainer);
+
+  // forecast container and contents
 
   const forecastContainer = document.createElement('div');
   forecastContainer.id = 'forecastContainer';
@@ -185,12 +210,11 @@ function populateDOM(weatherData) {
   const UVIndex = document.getElementById('UVIndex');
   UVIndex.textContent = `UV Index ${weatherData[0].locationUVIndex}`;
 
-
   const tempMinText = document.getElementById('tempMinText');
-  tempMinText.textContent = `Min: ${weatherData[0].forecastData[0].day0.minTempC}\u00B0`
+  tempMinText.textContent = `Min: ${weatherData[0].forecastData[0].day0.minTempC}\u00B0`;
 
   const tempMaxText = document.getElementById('tempMaxText');
-  tempMaxText.textContent = `Max: ${weatherData[0].forecastData[0].day0.maxTempC}\u00B0`
+  tempMaxText.textContent = `Max: ${weatherData[0].forecastData[0].day0.maxTempC}\u00B0`;
 
   // location and time section
   const locationName = document.getElementById('locationName');
@@ -294,31 +318,55 @@ function populateDOM(weatherData) {
       break;
   }
 
-  //populate forecast container
+  // populate forecast container
 
   for (let i = 1; i <= 7; i += 1) {
   // Selecting the outputs of each container using template literals
-  const selectedDayName = document.getElementById(`forecastDayName-${i - 1}`);
-  const selectedDayIcon = document.getElementById(`forecastDayIcon-${i - 1}`);
-  const selectedDayMinTemp = document.getElementById(`forecastDayMinTemp-${i - 1}`);
-  const selectedDayMaxTemp = document.getElementById(`forecastDayMaxTemp-${i - 1}`);
-  const forecastDay = `day${i}`;
-  const date = new Date(weatherData[0].forecastData[0][forecastDay].date).toString().split(' ')[0];
-  const icon = `https:${weatherData[0].forecastData[0][forecastDay].icon}`;
-  const minTempC = weatherData[0].forecastData[0][forecastDay].minTempC;
-  const maxTempC = weatherData[0].forecastData[0][forecastDay].maxTempC;
+    const selectedDayName = document.getElementById(`forecastDayName-${i - 1}`);
+    const selectedDayIcon = document.getElementById(`forecastDayIcon-${i - 1}`);
+    const selectedDayMinTemp = document.getElementById(`forecastDayMinTemp-${i - 1}`);
+    const selectedDayMaxTemp = document.getElementById(`forecastDayMaxTemp-${i - 1}`);
+    const forecastDay = `day${i}`;
+    const date = new Date(weatherData[0].forecastData[0][forecastDay].date).toString().split(' ')[0];
+    const icon = `https:${weatherData[0].forecastData[0][forecastDay].icon}`;
+    const { minTempC } = weatherData[0].forecastData[0][forecastDay];
+    const { maxTempC } = weatherData[0].forecastData[0][forecastDay];
 
-  selectedDayName.textContent = `${date}`;
-  selectedDayIcon.src = icon;    
-  selectedDayMinTemp.textContent = `${minTempC}\u00B0`;
-  selectedDayMaxTemp.textContent = `${maxTempC}\u00B0`;
+    selectedDayName.textContent = `${date}`;
+    selectedDayIcon.src = icon;
+    selectedDayMinTemp.textContent = `${minTempC}\u00B0`;
+    selectedDayMaxTemp.textContent = `${maxTempC}\u00B0`;
+  }
 
+  //populate daily rain forecast
 
-}
+  for (let i = 0; i < 24; i += 1) {
+    const hourRainIconDOM = document.getElementById(`hourRainIcon-${i}`);
+    const rainPercentDOM = document.getElementById(`rainPercent-${i}`);
+    const rainTimeDOM = document.getElementById(`rainTime-${i}`);
+
+    const hourSelector = `hour${i}`;
+    const hourRainData = weatherData[0].forecastData[0].day0.dailyRainChance[0][hourSelector];
+
+    const iconSelector = `icon${i}`;
+    const iconData = weatherData[0].forecastData[0].day0.dailyRainIcon[0][iconSelector];
+
+    hourRainIconDOM.src = `https:${iconData}`;
+    rainPercentDOM.textContent = `${hourRainData}%`;
+
+    if (i === 0) {
+      rainTimeDOM.textContent = '12pm';
+    }
+    else if ((i > 0) && (i < 13)) {
+      rainTimeDOM.textContent = `${i}am`;
+    }
+    else if ((i > 12)) {
+      rainTimeDOM.textContent = `${i - 12}pm`;
+    }
+  }
 }
 
 export { firstPageLoad, populateDOM };
-
 
 /*
     console.log(weather[0].forecastData.day0.date);

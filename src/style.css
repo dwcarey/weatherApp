@@ -155,3 +155,21 @@ h4 {
     text-align: left;
     margin-left: 6px;
 }
+
+#dayRainForecastContainer {
+    grid-column: span 2;
+    overflow: scroll;
+    display: grid;
+    grid-template-columns: repeat(24, 10vw);
+}
+
+.hourRainIcon {
+    width: 9vw;
+}
+
+.hourRainForecastContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 4vh;
+}
