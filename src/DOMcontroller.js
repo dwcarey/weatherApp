@@ -355,10 +355,13 @@ function populateDOM(weatherData) {
     rainPercentDOM.textContent = `${hourRainData}%`;
 
     if (i === 0) {
-      rainTimeDOM.textContent = '12pm';
+      rainTimeDOM.textContent = '12am';
     }
-    else if ((i > 0) && (i < 13)) {
+    else if ((i > 0) && (i < 12)) {
       rainTimeDOM.textContent = `${i}am`;
+    }
+    else if (i === 12) {
+      rainTimeDOM.textContent = '12pm';
     }
     else if ((i > 12)) {
       rainTimeDOM.textContent = `${i - 12}pm`;
